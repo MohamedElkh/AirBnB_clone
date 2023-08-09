@@ -5,13 +5,12 @@ import unittest
 import os
 import inspect
 import pep8
-import console
 from models import storage
 from models.engine.file_storage import FileStorage
 from io import StringIO
 from unittest.mock import patch
 from models.engine.file_storage import FileStorage
-HBNBCommand = console.HBNBCommand
+from console import HBNBCommand
 
 
 class TestHBNBCommand_prompting(unittest.TestCase):
