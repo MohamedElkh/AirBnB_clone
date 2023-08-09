@@ -1,16 +1,12 @@
 #!/usr/bin/python3
-"""Defines unittests for models/engine/file_storage.py.
-Unittest classes:
-    TestFileStorage_instantiation
-    TestFileStorage_methods
-"""
+""" dwfinw unittest for file storage """
+import models
 import os
 import json
-import models
 import unittest
 from datetime import datetime
-from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
 from models.user import User
 from models.state import State
 from models.place import Place
@@ -37,7 +33,6 @@ class TestFileStorage_instantiation(unittest.TestCase):
 
     def test_storage_initializes(self):
         self.assertEqual(type(models.storage), FileStorage)
-
 
 class TestFileStorage_methods(unittest.TestCase):
     """Unittests for testing methods of the FileStorage class."""
@@ -67,6 +62,14 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_all_with_arg(self):
         with self.assertRaises(TypeError):
             models.storage.all(None)
+
+    def test_new_with_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.new(BaseModel(), 1)
+
+    def test_new_with_None(self):
+        with self.assertRaises(AttributeError):
+            models.storage.new(None)
 
     def test_new(self):
         bm = BaseModel()
@@ -98,14 +101,6 @@ class TestFileStorage_methods(unittest.TestCase):
         self.assertIn("Review." + rv.id, models.storage.all().keys())
         self.assertIn(rv, models.storage.all().values())
 
-    def test_new_with_args(self):
-        with self.assertRaises(TypeError):
-            models.storage.new(BaseModel(), 1)
-
-    def test_new_with_None(self):
-        with self.assertRaises(AttributeError):
-            models.storage.new(None)
-
     def test_save(self):
         bm = BaseModel()
         us = User()
@@ -133,10 +128,6 @@ class TestFileStorage_methods(unittest.TestCase):
             self.assertIn("Amenity." + am.id, save_text)
             self.assertIn("Review." + rv.id, save_text)
 
-    def test_save_with_arg(self):
-        with self.assertRaises(TypeError):
-            models.storage.save(None)
-
     def test_reload(self):
         bm = BaseModel()
         us = User()
@@ -163,13 +154,16 @@ class TestFileStorage_methods(unittest.TestCase):
         self.assertIn("Amenity." + am.id, objs)
         self.assertIn("Review." + rv.id, objs)
 
+    def test_save_with_arg(self):
+        with self.assertRaises(TypeError):
+            models.storage.save(None)
+
     def test_reload_no_file(self):
         self.assertRaises(FileNotFoundError, models.storage.reload())
 
     def test_reload_with_arg(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
-
 
 if __name__ == "__main__":
     unittest.main()
