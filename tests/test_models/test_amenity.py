@@ -12,15 +12,17 @@ class TestAmenity_save(unittest.TestCase):
     """Unittests for testing save method of the Amenity class."""
 
     @classmethod
-    def setUp(self):
+    def ssetUp(self):
         try:
             os.rename("file.json", "tmp")
+
         except IOError:
             pass
 
-    def tearDown(self):
+    def tearrDown(self):
         try:
             os.remove("file.json")
+
         except IOError:
             pass
         try:
@@ -30,6 +32,7 @@ class TestAmenity_save(unittest.TestCase):
 
     def test_one_savee(self):
         amx = Amenity()
+
         sleep(0.05)
         first_updated_at = amx.updated_at
         amx.save()
@@ -37,6 +40,7 @@ class TestAmenity_save(unittest.TestCase):
 
     def test_two_savves(self):
         amx = Amenity()
+
         sleep(0.05)
         first_updated_at = amx.updated_at
         amx.save()
@@ -48,12 +52,14 @@ class TestAmenity_save(unittest.TestCase):
 
     def test_save_witharg(self):
         amx = Amenity()
+
         with self.assertRaises(TypeError):
             amx.save(None)
 
     def test_save_updatesfile(self):
         amx = Amenity()
         amx.save()
+
         amid = "Amenity." + amx.id
         with open("file.json", "r") as f:
             self.assertIn(amid, f.read())
@@ -79,6 +85,7 @@ class TestAmenity_instantiatioon(unittest.TestCase):
 
     def test_name_is_public_classattribute(self):
         amx = Amenity()
+
         self.assertEqual(str, type(Amenity.name))
         self.assertIn("name", dir(Amenity()))
         self.assertNotIn("name", amx.__dict__)
@@ -86,18 +93,21 @@ class TestAmenity_instantiatioon(unittest.TestCase):
     def test_two_amenitiess_unique_ids(self):
         amx1 = Amenity()
         amx2 = Amenity()
+
         self.assertNotEqual(amx1.id, amx2.id)
 
     def test_two_amenities_different_ccreated_at(self):
         amx1 = Amenity()
         sleep(0.05)
         amx2 = Amenity()
+
         self.assertLess(amx1.created_at, amx2.created_at)
 
     def test_two_amenities_differnt_updated_at(self):
         amx1 = Amenity()
         sleep(0.05)
         amx2 = Amenity()
+
         self.assertLess(amx1.updated_at, amx2.updated_at)
 
     def test_str_representatioon(self):
@@ -107,6 +117,7 @@ class TestAmenity_instantiatioon(unittest.TestCase):
         amx.id = "123456"
         amx.created_at = amx.updated_at = dt
         amstr = amx.__str__()
+
         self.assertIn("[Amenity] (123456)", amstr)
         self.assertIn("'id': '123456'", amstr)
         self.assertIn("'created_at': " + dt_repr, amstr)
@@ -114,23 +125,26 @@ class TestAmenity_instantiatioon(unittest.TestCase):
 
     def test_args_unused(self):
         amx = Amenity(None)
+
         self.assertNotIn(None, amx.__dict__.values())
 
     def test_instantiation_with_kwargs(self):
         """instantiation with kwargs test method"""
         dt = datetime.today()
         dt_iso = dt.isoformat()
+
         amx = Amenity(id="345", created_at=dt_iso, updated_at=dt_iso)
         self.assertEqual(amx.id, "345")
         self.assertEqual(amx.created_at, dt)
         self.assertEqual(amx.updated_at, dt)
 
-    def test_instantiation_with_none_kwargs(self):
+    def test_instantiation_none_kwargs(self):
         with self.assertRaises(TypeError):
+
             Amenity(id=None, created_at=None, updated_at=None)
 
 
-class TestAmenity_to_dict(unittest.TestCase):
+class TestAmenity_too_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the Amenity class."""
 
     def test_to_dict_tyype(self):
@@ -138,6 +152,7 @@ class TestAmenity_to_dict(unittest.TestCase):
 
     def test_to_dict_contains_correct_keys(self):
         amx = Amenity()
+
         self.assertIn("id", amx.to_dict())
         self.assertIn("created_at", amx.to_dict())
         self.assertIn("updated_at", amx.to_dict())
@@ -145,6 +160,7 @@ class TestAmenity_to_dict(unittest.TestCase):
 
     def test_to_dict_contains_addedattributes(self):
         amx = Amenity()
+
         amx.middle_name = "Holberton"
         amx.my_number = 98
         self.assertEqual("Holberton", amx.middle_name)
@@ -152,6 +168,7 @@ class TestAmenity_to_dict(unittest.TestCase):
 
     def test_to_dict_datetime_attribut_are_strs(self):
         amx = Amenity()
+
         am_dict = amx.to_dict()
         self.assertEqual(str, type(am_dict["id"]))
         self.assertEqual(str, type(am_dict["created_at"]))
@@ -162,6 +179,7 @@ class TestAmenity_to_dict(unittest.TestCase):
         amx = Amenity()
         amx.id = "123456"
         amx.created_at = amx.updated_at = dt
+
         tdict = {
                 'id': '123456',
                 '__class__': 'Amenity',
@@ -172,10 +190,12 @@ class TestAmenity_to_dict(unittest.TestCase):
 
     def test_contrast_to_dict_dnder_dict(self):
         amx = Amenity()
+
         self.assertNotEqual(amx.to_dict(), amx.__dict__)
 
     def test_to_dict_witharg(self):
         amx = Amenity()
+
         with self.assertRaises(TypeError):
             amx.to_dict(None)
 

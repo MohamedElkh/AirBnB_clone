@@ -8,17 +8,17 @@ from time import sleep
 from models.state import State
 
 
-class TestState_save(unittest.TestCase):
+class TestState_saave(unittest.TestCase):
     """Unittests for testing save method of the State class."""
 
     @classmethod
-    def setUp(self):
+    def ssetUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    def tearDown(self):
+    def tearDownn(self):
         try:
             os.remove("file.json")
         except IOError:
@@ -28,155 +28,180 @@ class TestState_save(unittest.TestCase):
         except IOError:
             pass
 
-    def test_one_save(self):
-        st = State()
-        sleep(0.05)
-        first_updated_at = st.updated_at
-        st.save()
-        self.assertLess(first_updated_at, st.updated_at)
+    def test_one_saave(self):
+        stx = State()
 
-    def test_two_saves(self):
-        st = State()
         sleep(0.05)
-        first_updated_at = st.updated_at
-        st.save()
-        second_updated_at = st.updated_at
+        first_updated_at = stx.updated_at
+        stx.save()
+        self.assertLess(first_updated_at, stx.updated_at)
+
+    def test_two_saaves(self):
+        stx = State()
+
+        sleep(0.05)
+        first_updated_at = stx.updated_at
+        stx.save()
+        second_updated_at = stx.updated_at
         self.assertLess(first_updated_at, second_updated_at)
         sleep(0.05)
-        st.save()
-        self.assertLess(second_updated_at, st.updated_at)
+        stx.save()
+        self.assertLess(second_updated_at, stx.updated_at)
 
-    def test_save_with_arg(self):
-        st = State()
+    def test_ssave_with_arg(self):
+        stx = State()
+
         with self.assertRaises(TypeError):
-            st.save(None)
+            stx.save(None)
 
-    def test_save_updates_file(self):
-        st = State()
-        st.save()
-        stid = "State." + st.id
+    def test_save_updatesfile(self):
+        stx = State()
+        stx.save()
+
+        stid = "State." + stx.id
         with open("file.json", "r") as f:
             self.assertIn(stid, f.read())
 
 
-class TestState_instantiation(unittest.TestCase):
+class TestState_iinstantion(unittest.TestCase):
     """Unittests for testing instantiation of the State class."""
 
-    def test_no_args_instantiates(self):
+    def test_no_args_instantiat(self):
+
         self.assertEqual(State, type(State()))
 
-    def test_new_instance_stored_in_objects(self):
+    def test_new_instance_stored_in_objs(self):
+
         self.assertIn(State(), models.storage.all().values())
 
-    def test_id_is_public_str(self):
+    def test_id_is_pl_str(self):
+
         self.assertEqual(str, type(State().id))
 
-    def test_created_at_is_public_datetime(self):
+    def test_created_at_public_datetime(self):
+
         self.assertEqual(datetime, type(State().created_at))
 
-    def test_updated_at_is_public_datetime(self):
+    def test_updated_atpublic_datetime(self):
+
         self.assertEqual(datetime, type(State().updated_at))
 
-    def test_name_is_public_class_attribute(self):
-        st = State()
+    def test_name_public_class_attribute(self):
+        stx = State()
+
         self.assertEqual(str, type(State.name))
-        self.assertIn("name", dir(st))
-        self.assertNotIn("name", st.__dict__)
+        self.assertIn("name", dir(stx))
+        self.assertNotIn("name", stx.__dict__)
 
-    def test_two_states_unique_ids(self):
-        st1 = State()
-        st2 = State()
-        self.assertNotEqual(st1.id, st2.id)
+    def test_two_states_uniq_ids(self):
+        stx1 = State()
+        stx2 = State()
 
-    def test_two_states_different_created_at(self):
-        st1 = State()
+        self.assertNotEqual(stx1.id, stx2.id)
+
+    def test_two_states_diff_created_at(self):
+        stx1 = State()
         sleep(0.05)
-        st2 = State()
-        self.assertLess(st1.created_at, st2.created_at)
+        stx2 = State()
 
-    def test_two_states_different_updated_at(self):
-        st1 = State()
+        self.assertLess(stx1.created_at, stx2.created_at)
+
+    def test_two_states_diff_updated_at(self):
+        stx1 = State()
         sleep(0.05)
-        st2 = State()
-        self.assertLess(st1.updated_at, st2.updated_at)
+        stx2 = State()
 
-    def test_str_representation(self):
+        self.assertLess(stx1.updated_at, stx2.updated_at)
+
+    def test_str_rep(self):
         dt = datetime.today()
         dt_repr = repr(dt)
-        st = State()
-        st.id = "123456"
-        st.created_at = st.updated_at = dt
-        ststr = st.__str__()
+
+        stx = State()
+        stx.id = "123456"
+        stx.created_at = stx.updated_at = dt
+        ststr = stx.__str__()
+
         self.assertIn("[State] (123456)", ststr)
         self.assertIn("'id': '123456'", ststr)
         self.assertIn("'created_at': " + dt_repr, ststr)
         self.assertIn("'updated_at': " + dt_repr, ststr)
 
-    def test_args_unused(self):
-        st = State(None)
-        self.assertNotIn(None, st.__dict__.values())
+    def test_arg_unused(self):
+        stx = State(None)
 
-    def test_instantiation_with_kwargs(self):
+        self.assertNotIn(None, stx.__dict__.values())
+
+    def test_instant_with_kwargs(self):
         dt = datetime.today()
         dt_iso = dt.isoformat()
-        st = State(id="345", created_at=dt_iso, updated_at=dt_iso)
-        self.assertEqual(st.id, "345")
-        self.assertEqual(st.created_at, dt)
-        self.assertEqual(st.updated_at, dt)
 
-    def test_instantiation_with_None_kwargs(self):
+        stx = State(id="345", created_at=dt_iso, updated_at=dt_iso)
+        self.assertEqual(stx.id, "345")
+        self.assertEqual(stx.created_at, dt)
+        self.assertEqual(stx.updated_at, dt)
+
+    def test_instant_with_None_kwargs(self):
         with self.assertRaises(TypeError):
+
             State(id=None, created_at=None, updated_at=None)
 
 
-class TestState_to_dict(unittest.TestCase):
+class TestStatee_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the State class."""
 
-    def test_to_dict_type(self):
+    def test_too_dict_type(self):
+
         self.assertTrue(dict, type(State().to_dict()))
 
-    def test_to_dict_contains_correct_keys(self):
-        st = State()
-        self.assertIn("id", st.to_dict())
-        self.assertIn("created_at", st.to_dict())
-        self.assertIn("updated_at", st.to_dict())
-        self.assertIn("__class__", st.to_dict())
+    def test_too_dict_contains_correct_keys(self):
+        stx = State()
 
-    def test_to_dict_contains_added_attributes(self):
-        st = State()
-        st.middle_name = "Holberton"
-        st.my_number = 98
-        self.assertEqual("Holberton", st.middle_name)
-        self.assertIn("my_number", st.to_dict())
+        self.assertIn("id", stx.to_dict())
+        self.assertIn("created_at", stx.to_dict())
+        self.assertIn("updated_at", stx.to_dict())
+        self.assertIn("__class__", stx.to_dict())
 
-    def test_to_dict_datetime_attributes_are_strs(self):
-        st = State()
-        st_dict = st.to_dict()
+    def test_to_dict_contains_added_attrs(self):
+        stx = State()
+        stx.middle_name = "Holberton"
+        stx.my_number = 98
+
+        self.assertEqual("Holberton", stx.middle_name)
+        self.assertIn("my_number", stx.to_dict())
+
+    def test_to_dict_datetime_attributes_strs(self):
+        stx = State()
+        st_dict = stx.to_dict()
+
         self.assertEqual(str, type(st_dict["id"]))
         self.assertEqual(str, type(st_dict["created_at"]))
         self.assertEqual(str, type(st_dict["updated_at"]))
 
-    def test_to_dict_output(self):
+    def test_to_d_output(self):
         dt = datetime.today()
-        st = State()
-        st.id = "123456"
-        st.created_at = st.updated_at = dt
+
+        stx = State()
+        stx.id = "123456"
+        stx.created_at = stx.updated_at = dt
         tdict = {
                 'id': '123456',
                 '__class__': 'State',
                 'created_at': dt.isoformat(),
                 'updated_at': dt.isoformat(),
                 }
-        self.assertDictEqual(st.to_dict(), tdict)
+        self.assertDictEqual(stx.to_dict(), tdict)
 
-    def test_contrast_to_dict_dunder_dict(self):
-        st = State()
-        self.assertNotEqual(st.to_dict(), st.__dict__)
+    def test_contrast_to_dunder_dict(self):
+        stx = State()
 
-    def test_to_dict_with_arg(self):
-        st = State()
+        self.assertNotEqual(stx.to_dict(), stx.__dict__)
+
+    def test_to_d_with_arg(self):
+        stx = State()
+
         with self.assertRaises(TypeError):
-            st.to_dict(None)
+            stx.to_dict(None)
 
 
 if __name__ == "__main__":
