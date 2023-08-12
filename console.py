@@ -11,6 +11,7 @@ from shlex import split
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from datetime import datetime
 
 
 def parse(arg):
@@ -50,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
         "Review"
     }
 
-    def emptylinee(self):
+    def emptyline(self):
         """ func to do nothing """
         pass
 
@@ -67,12 +68,14 @@ class HBNBCommand(cmd.Cmd):
         if mtch is not None:
             g1 = [arg[:mtch.span()[0]], arg[mtch.span()[1]:]]
 
-            mtch = re.search(r"\((.*?)\)", arg[1])
+            mtch = re.search(r"\((.*?)\)", g1[1])
 
             if mtch is not None:
-                com = [argl[1][:mtch.span()[0]], mtch.group()[1:-1]]
+                com = [g1[1][:mtch.span()[0]], mtch.group()[1:-1]]
+
                 if com[0] in rdict.keys():
                     cl = "{} {}".format(g1[0], com[1])
+
                     return rdict[com[0]](cl)
 
         print("*** Unknown syntax: {}".format(arg))
@@ -93,6 +96,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(g1) == 0:
             print("** class name missing **")
+
         elif g1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
@@ -124,6 +128,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif g1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
+
         elif len(g1) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(g1[0], g1[1]) not in obdict.keys():
@@ -168,6 +173,7 @@ class HBNBCommand(cmd.Cmd):
         if len(g1) == 0:
             print("** class name missing **")
             return False
+
         if g1[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
             return False
@@ -185,7 +191,6 @@ class HBNBCommand(cmd.Cmd):
                 type(eval(g1[2])) != dict
             except NameError:
                 print("** value missing **")
-
                 return False
 
         if len(g1) == 4:
