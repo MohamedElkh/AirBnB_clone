@@ -38,16 +38,16 @@ class HBNBCommand(cmd.Cmd):
         prom: the command prompt
     """
 
-    prom = "(hbnb) "
+    prompt = "(hbnb) "
 
     __classes = {"BaseModel", "User", "State", "City",
                  "Place", "Amenity", "Review"}
 
-    def do_emptylinee(self):
+    def emptylinee(self):
         """ func to do nothing """
         pass
 
-    def do_default(self, arg):
+    def default(self, arg):
         """ func to default the behavior for cmd """
         rdict = {
                 "all": self.do_all, "show": self.do_show,
