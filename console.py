@@ -70,16 +70,16 @@ class HBNBCommand(cmd.Cmd):
         print("*** Unknown syntax: {}".format(arg))
         return False
 
-    def do_quit(self, arg):
+    def quit(self, arg):
         """ func to quit the command to exit """
         return True
 
-    def do_EOF(self, arg):
+    def EOF(self, arg):
         """ func eof signal to exit """
         print("")
         return True
 
-    def do_create(self, arg):
+    def create(self, arg):
         """ func to create new class """
         g1 = parse(arg)
 
@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
             print(eval(g1[0])().id)
             storage.save()
 
-    def do_show(self, arg):
+    def show(self, arg):
         """ func to display the str rep of class """
         g1 = parse(arg)
         obdict = storage.all()
@@ -107,7 +107,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(obdict["{}.{}".format(g1[0], g1[1])])
 
-    def do_destroy(self, arg):
+    def destroy(self, arg):
         """ func to destroy class """
         g1 = parse(arg)
         obdict = storage.all()
@@ -124,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
             del obdict["{}.{}".format(g1[0], g1[1])]
             storage.save()
 
-    def do_all(self, arg):
+    def all(self, arg):
         """ func to display all strings """
         g1 = parse(arg)
 
@@ -150,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
                 num += 1
         print(num)
 
-    def do_update(self, arg):
+    def update(self, arg):
         """ func to update key and value """
         g1 = parse(arg)
         obdict = storage.all()

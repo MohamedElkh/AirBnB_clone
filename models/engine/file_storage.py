@@ -36,14 +36,15 @@ class FileStorage:
         oodict = FileStorage.__objects
         obdict = {obj: oodict[obj].to_dict() for obj in oodict.keys()}
 
-        with open(FileStorage.__file_path, "w") as fl:
-            json.dump(obdict, fl)
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump(obdict, f)
 
     def reload(self):
         """ func to turn the json file to object """
         try:
-            with open(FileStorage.__file_path) as fl:
-                obdict = json.load(fl)
+            with open(FileStorage.__file_path) as f:
+                obdict = json.load(f)
+
                 for o in obdict.values():
                     cl_name = o["__class__"]
                     del o["__class__"]
