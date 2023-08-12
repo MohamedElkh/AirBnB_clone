@@ -39,6 +39,7 @@ class TestFileStorage_iinstantiat(unittest.TestCase):
 
         self.assertEqual(type(models.storage), FileStorage)
 
+
 class TestFileStorage_meethods(unittest.TestCase):
     """Unittests for testing methods of the FileStorage class."""
 
@@ -185,6 +186,7 @@ class TestFileStorage_meethods(unittest.TestCase):
         with self.assertRaises(TypeError):
 
             models.storage.reload(None)
+
 
 if __name__ == "__main__":
     unittest.main()

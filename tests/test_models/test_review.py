@@ -65,6 +65,7 @@ class TestReview_saave(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn(rvid, f.read())
 
+
 class TestReview_too_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the Review class."""
 

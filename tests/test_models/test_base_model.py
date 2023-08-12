@@ -207,5 +207,6 @@ class TestBaseModel_ssave(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn(bmid, f.read())
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -19,6 +19,7 @@ class TestTheConsole(unittest.TestCase):
         stateex = State()
         revvx = Review()
         placeex = Place()
+
         self.assertEqual(cityyx.__class__.__name__, "City")
         self.assertEqual(amenityyx.__class__.__name__, "Amenity")
         self.assertEqual(stateex.__class__.__name__, "State")
@@ -32,9 +33,9 @@ class TestTheConsole(unittest.TestCase):
         stateex = State()
         revvx = Review()
         placeex = Place()
+
         self.assertTrue(issubclass(cityyx.__class__, BaseModel))
         self.assertTrue(issubclass(amenityyx.__class__, BaseModel))
         self.assertTrue(issubclass(stateex.__class__, BaseModel))
         self.assertTrue(issubclass(revvx.__class__, BaseModel))
         self.assertTrue(issubclass(placeex.__class__, BaseModel))
-
