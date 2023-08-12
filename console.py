@@ -40,8 +40,15 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
-    __classes = {"BaseModel", "User", "State", "City",
-                 "Place", "Amenity", "Review"}
+    __classes = {
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Place",
+        "Amenity",
+        "Review"
+    }
 
     def emptylinee(self):
         """ func to do nothing """
