@@ -10,10 +10,10 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 
 
-class TestConsolle(unittest.TestCase):
+class TestTheConsole(unittest.TestCase):
     """ this test for checks if all req class are created """
     def test_classes(self):
-        """ this test checks if class are found """
+        """ this test checks if all req classes are created """
         cityyx = City()
         amenityyx = Amenity()
         stateex = State()
@@ -37,3 +37,4 @@ class TestConsolle(unittest.TestCase):
         self.assertTrue(issubclass(stateex.__class__, BaseModel))
         self.assertTrue(issubclass(revvx.__class__, BaseModel))
         self.assertTrue(issubclass(placeex.__class__, BaseModel))
+
