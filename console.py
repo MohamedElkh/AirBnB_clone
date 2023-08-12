@@ -65,8 +65,9 @@ class HBNBCommand(cmd.Cmd):
             if mtch is not None:
                 com = [argl[1][:mtch.span()[0]], mtch.group()[1:-1]]
                 if com[0] in rdict.keys():
-                    cl = "{} {}".format(argl[0], com[1])
+                    cl = "{} {}".format(g1[0], com[1])
                     return rdict[com[0]](cl)
+
         print("*** Unknown syntax: {}".format(arg))
         return False
 
@@ -122,6 +123,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         else:
             del obdict["{}.{}".format(g1[0], g1[1])]
+
             storage.save()
 
     def do_all(self, arg):
@@ -137,6 +139,7 @@ class HBNBCommand(cmd.Cmd):
                 if len(g1) > 0 and g1[0] == obj.__class__.__name__:
                     ob.append(obj.__str__())
                 elif len(g1) == 0:
+
                     ob.append(obj.__str__())
             print(ob)
 
@@ -175,6 +178,7 @@ class HBNBCommand(cmd.Cmd):
                 type(eval(g1[2])) != dict
             except NameError:
                 print("** value missing **")
+
                 return False
 
         if len(g1) == 4:
@@ -182,14 +186,17 @@ class HBNBCommand(cmd.Cmd):
             if g1[2] in obj.__class__.__dict__.keys():
                 vtype = type(obj.__class__.__dict__[g1[2]])
                 obj.__dict__[g1[2]] = vtype(g1[3])
+
             else:
                 obj.__dict__[g1[2]] = g1[3]
+
         elif type(eval(g1[2])) == dict:
             obj = obdict["{}.{}".format(g1[0], g1[1])]
 
             for x, a in eval(g1[2]).items():
                 if (x in obj.__class__.__dict__.keys() and
                         type(obj.__class__.__dict__[x]) in {str, int, float}):
+
                     vtype = type(obj.__class__.__dict__[x])
                     obj.__dict__[x] = vtype(a)
                 else:
