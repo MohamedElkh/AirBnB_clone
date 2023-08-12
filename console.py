@@ -12,7 +12,6 @@ from models import storage
 from models.base_model import BaseModel
 from models.user import User
 
-
 def parse(arg):
     cl_braces = re.search(r"\{(.*?)\}", arg)
     brackt = re.search(r"\[(.*?)\]", arg)
@@ -199,3 +198,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
+
