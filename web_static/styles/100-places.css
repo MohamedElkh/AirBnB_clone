@@ -3,6 +3,7 @@
   border: 0;
   display: flex;
   justify-content: center;
+
   flex-wrap: wrap;
   flex-direction: row;
 }
@@ -11,6 +12,7 @@
   font-size: 30px;
   padding-left: 20px;
   padding-top: 20px;
+
   margin-bottom: 0px;
   flex: 0 1 100%;
 }
@@ -22,6 +24,7 @@ article {
   justify-content: center;
   flex-direction: column;
   justify-content: flex-start;
+
   position: relative;
   width: 390px;
   margin: 20px;
@@ -31,6 +34,7 @@ article {
 article > h2 {
   font-size: 30px;
   align-self: center;
+
   margin: 0 0 0 0;
 }
 
@@ -43,6 +47,7 @@ article > h2 {
   border-radius: 50%;
   display: flex;
   justify-content: center;
+
   align-items: center;
   margin-left: auto;
   position: absolute;
@@ -58,6 +63,7 @@ article > h2 {
   width: 100%;
   border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
+
   margin-top: 30px;
   padding-top: 10px;
   display: flex;
@@ -71,27 +77,22 @@ article > h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* width: 100px; */
+
 }
 
 .information [class^='icon'] {
   height: 50px;
   width: 50px;
+
   background-repeat: no-repeat;
 }
-
-/* .max_guest > p,
-.number_rooms > p,
-.number_bathrooms > p {
-  margin-top: auto;
-  margin-bottom: auto;
-} */
 
 .guest_image {
   margin-left: auto;
   margin-right: auto;
   height: 50px;
   width: 50px;
+
   background: url('../images/icon_group.png') no-repeat center;
   background-position: center;
 }
@@ -101,6 +102,7 @@ article > h2 {
   margin-right: auto;
   height: 50px;
   width: 50px;
+
   background: url('../images/icon_bed.png') no-repeat center;
 }
 
@@ -109,6 +111,7 @@ article > h2 {
   margin-right: auto;
   height: 50px;
   width: 50px;
+
   background: url('../images/icon_bath.png') no-repeat center;
 }
 
@@ -122,6 +125,7 @@ article .amenities h2 {
   font-size: 16px;
   padding-bottom: 10px;
   border-bottom: 1px solid #dddddd;
+
   position: relative;
   left: -30px;
 }
@@ -129,6 +133,7 @@ article .amenities h2 {
 article .reviews h2 {
   font-size: 16px;
   padding-bottom: 10px;
+
   border-bottom: 1px solid #dddddd;
 }
 
@@ -144,6 +149,7 @@ article .reviews ul {
 article .amenities li {
   list-style-type: none;
   margin: 10px;
+
   display: flex;
   align-items: center;
   justify-content: start;
@@ -167,6 +173,7 @@ article .reviews p {
   background-image: url(../images/icon_tv.png);
   background-size: cover;
   background-repeat: no-repeat;
+
   margin-right: 10px;
   height: 20px;
   width: 20px;
